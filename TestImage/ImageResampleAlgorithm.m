@@ -22,8 +22,6 @@
 + (void)test {
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ming" ofType:@"png"];
-    
-    
     UIImage *originalUIImage = [[UIImage alloc]initWithContentsOfFile:filePath];
     CGFloat ratio = originalUIImage.size.width / originalUIImage.size.height;
     CGFloat showWidth = 200.0;
@@ -45,8 +43,12 @@
     }
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(pixelData, width, height,
-                                                 bitsPerComponent, bytesPerRow, colorSpace,
+    CGContextRef context = CGBitmapContextCreate(pixelData,
+                                                 width,
+                                                 height,
+                                                 bitsPerComponent,
+                                                 bytesPerRow,
+                                                 colorSpace,
                                                  kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
 
     if (!context) {
