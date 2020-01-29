@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,9 @@
 		1F58DF3923D346FC00B0C88A /* ResampleFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F58DF3823D346FC00B0C88A /* ResampleFilter.swift */; };
 		1F58DF3B23D349C300B0C88A /* DifferenceOfImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F58DF3A23D349C300B0C88A /* DifferenceOfImages.swift */; };
 		1F58DF3D23D357A300B0C88A /* originalUIImage_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F58DF3C23D357A300B0C88A /* originalUIImage_1.png */; };
+		1F941B8D23DFE33600918160 /* RSTOa.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F941B8C23DFE33600918160 /* RSTOa.png */; };
+		1FB2BD0523E16E48006F59BE /* SwiftImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1FB2BD0423E16E48006F59BE /* SwiftImage */; };
+		1FB2BD0723E16EB6006F59BE /* ming.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB2BD0623E16EB6006F59BE /* ming.png */; };
 		1FC0075D236B406900C7F335 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0075C236B406900C7F335 /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +36,8 @@
 		1F58DF3823D346FC00B0C88A /* ResampleFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResampleFilter.swift; sourceTree = "<group>"; };
 		1F58DF3A23D349C300B0C88A /* DifferenceOfImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferenceOfImages.swift; sourceTree = "<group>"; };
 		1F58DF3C23D357A300B0C88A /* originalUIImage_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = originalUIImage_1.png; sourceTree = "<group>"; };
+		1F941B8C23DFE33600918160 /* RSTOa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RSTOa.png; sourceTree = "<group>"; };
+		1FB2BD0623E16EB6006F59BE /* ming.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ming.png; sourceTree = "<group>"; };
 		1FC0075C236B406900C7F335 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB2BD0523E16E48006F59BE /* SwiftImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +83,8 @@
 				1F3032C7234E0F83007F2083 /* LaunchScreen.storyboard */,
 				1F3032CA234E0F83007F2083 /* Info.plist */,
 				1F58DF3C23D357A300B0C88A /* originalUIImage_1.png */,
+				1FB2BD0623E16EB6006F59BE /* ming.png */,
+				1F941B8C23DFE33600918160 /* RSTOa.png */,
 				1F3032D0234E14A5007F2083 /* baylor.jpg */,
 			);
 			path = TestImage;
@@ -98,6 +106,9 @@
 			dependencies = (
 			);
 			name = TestImage;
+			packageProductDependencies = (
+				1FB2BD0423E16E48006F59BE /* SwiftImage */,
+			);
 			productName = TestImage;
 			productReference = 1F3032B9234E0F81007F2083 /* TestImage.app */;
 			productType = "com.apple.product-type.application";
@@ -126,6 +137,9 @@
 				Base,
 			);
 			mainGroup = 1F3032B0234E0F81007F2083;
+			packageReferences = (
+				1FB2BD0323E16E48006F59BE /* XCRemoteSwiftPackageReference "swift-image" */,
+			);
 			productRefGroup = 1F3032BA234E0F81007F2083 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -140,11 +154,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB2BD0723E16EB6006F59BE /* ming.png in Resources */,
 				1F58DF3D23D357A300B0C88A /* originalUIImage_1.png in Resources */,
 				1F3032C9234E0F83007F2083 /* LaunchScreen.storyboard in Resources */,
 				1F3032C6234E0F83007F2083 /* Assets.xcassets in Resources */,
 				1F3032D1234E14A5007F2083 /* baylor.jpg in Resources */,
 				1F3032C4234E0F81007F2083 /* Main.storyboard in Resources */,
+				1F941B8D23DFE33600918160 /* RSTOa.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +372,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1FB2BD0323E16E48006F59BE /* XCRemoteSwiftPackageReference "swift-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/koher/swift-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1FB2BD0423E16E48006F59BE /* SwiftImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FB2BD0323E16E48006F59BE /* XCRemoteSwiftPackageReference "swift-image" */;
+			productName = SwiftImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1F3032B1234E0F81007F2083 /* Project object */;
 }
