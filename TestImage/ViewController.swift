@@ -43,8 +43,9 @@ class ViewController: UIViewController {
         self.imageView.layer.magnificationFilter = CALayerContentsFilter.trilinear
         self.imageView.image = originalUIImage
 
-        
-        test2()
+        ImageResampleAlgorithm.test()
+//        test2()
+//        TestSwim.test()
         
 //        imageView.translatesAutoresizingMaskIntoConstraints = false
 //        imageView.contentMode = .scaleAspectFit
@@ -124,14 +125,14 @@ class ViewController: UIViewController {
         let image = Image<RGBA<UInt8>>(named: "ming")!
         let ratio = ((Double)(image.width)) / ((Double)(image.height))
         let showWidth: Int = 200
-        let showHeight = Int(ceil(Double(showWidth) / ratio));
+        let showHeight = Int(ceil(Double(showWidth) / ratio))
         let newImage = image.resizedTo(width: showWidth, height: showHeight, interpolatedBy: .bilinear)
         
         let newUIImage = newImage.uiImage
-        saveImage(newUIImage, named: "new.png")
+        ViewController.saveImage(newUIImage, named: "new.png")
     }
     
-    func saveImage(_ image: UIImage, named: String) {
+    class func saveImage(_ image: UIImage, named: String) {
         var path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         path = path + "/\(named)"
         print("save to file \(path)")

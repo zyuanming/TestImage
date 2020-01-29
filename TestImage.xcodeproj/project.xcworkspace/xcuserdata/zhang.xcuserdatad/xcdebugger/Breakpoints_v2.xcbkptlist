@@ -40,7 +40,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7B9D378B-7A24-4BFE-B3AA-2B6BBB7CAC34"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../../Library/Developer/Xcode/DerivedData/TestImage-hjcymztmpjspqvdawuzncepfzkau/SourcePackages/checkouts/swift-image/Sources/SwiftImage/CoreGraphics.swift"
@@ -200,7 +200,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E1642298-4BB4-46F9-BAE2-B7ABE09FE1E8"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../../Library/Developer/Xcode/DerivedData/TestImage-hjcymztmpjspqvdawuzncepfzkau/SourcePackages/checkouts/swift-image/Sources/SwiftImage/CoreGraphics.swift"
@@ -296,7 +296,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "DD539CC8-8C42-407C-8041-C49E9E445DFE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../../Library/Developer/Xcode/DerivedData/TestImage-hjcymztmpjspqvdawuzncepfzkau/SourcePackages/checkouts/swift-image/Sources/SwiftImage/CoreGraphics.swift"
@@ -321,6 +321,54 @@
             startingLineNumber = "63"
             endingLineNumber = "63"
             landmarkName = "interpolatedPixelByBilinear(x:y:pixelAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4BB665CE-9163-4A13-AD38-0A346965461D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TestImage-hjcymztmpjspqvdawuzncepfzkau/SourcePackages/checkouts/swift-image/Sources/SwiftImage/RGBA.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "map(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "071932D7-052C-4C3B-9CEA-240E47173B03"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TestImage-hjcymztmpjspqvdawuzncepfzkau/SourcePackages/checkouts/swift-image/Sources/SwiftImage/PremultipliedRGBA.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "init(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D8C0DC96-25F2-4F65-8A3F-7F3FE481816B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TestImage-hjcymztmpjspqvdawuzncepfzkau/SourcePackages/checkouts/swift-image/Sources/SwiftImage/RGB.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "init(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
