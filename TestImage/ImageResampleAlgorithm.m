@@ -21,10 +21,10 @@
 
 + (void)test {
     
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ming" ofType:@"png"];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ming_little" ofType:@"png"];
     UIImage *originalUIImage = [[UIImage alloc]initWithContentsOfFile:filePath];
     CGFloat ratio = originalUIImage.size.width / originalUIImage.size.height;
-    CGFloat showWidth = 200.0;
+    CGFloat showWidth = 70.0;
     CGFloat showHeight = showWidth / ratio;
     
     CGImageRef cgOriginalImage = originalUIImage.CGImage;
@@ -67,6 +67,8 @@
     
     // Resample image: Bilinear Interpolation 双线性插值算法
     UInt32* rgba2 = scaleImageWithLinearInterpolation(pixelData, width, height, showWidth, showHeight);
+    
+    UInt32* rgba3 = scaleImageWithBicubicInterpolation(pixelData, width, height, showWidth, showHeight);
 
     [self savePixelData:rgba1
                   width:showWidth
@@ -83,6 +85,14 @@
             bytesPerRow:bytesPerPixel * showWidth
              colorSpace:colorSpace
                saveName:@"bilinear.png"];
+    
+    [self savePixelData:rgba3
+                  width:showWidth
+                 height:showHeight
+       bitsPerComponent:bitsPerComponent
+            bytesPerRow:bytesPerPixel * showWidth
+             colorSpace:colorSpace
+               saveName:@"bicubic.png"];
     
     CFRelease(colorSpace);
     free(rgba1);
@@ -173,17 +183,21 @@ static UInt32* scaleImageWithLinearInterpolation(UInt32* pixelData, int sourceWi
             double coffiecent3 = t * u;
             double coffiecent4 = (t) * (1.0 - u);
             
+            // 四个角的颜色值
             UInt32 inputColor00 = pixelData[(getClip((int)j, sourceHeight - 1 , 0) * sourceWidth + getClip((int)k, sourceWidth - 1, 0))];
             UInt32 inputColor10 = pixelData[(getClip((int)(j+1), sourceHeight - 1 , 0) * sourceWidth + getClip((int)k, sourceWidth - 1, 0))];
             UInt32 inputColor11 = pixelData[(getClip((int)(j+1), sourceHeight - 1 , 0) * sourceWidth + getClip((int)(k+1), sourceWidth - 1, 0))];
             UInt32 inputColor01 = pixelData[(getClip((int)j, sourceHeight - 1 , 0) * sourceWidth + getClip((int)(k+1), sourceWidth - 1, 0))];
             
+            // 新的透明度
             UInt32 newA = (UInt32)(
                                 coffiecent1 * A(inputColor00) +
                                 coffiecent2 * A(inputColor10) +
                                 coffiecent3 * A(inputColor11) +
                                 coffiecent4 * A(inputColor01)
                                 );
+            
+            // 新的R分量的值
             double r00 = R(inputColor00) * (255.0 / A(inputColor00));
             double r10 = R(inputColor10) * (255.0 / A(inputColor10));
             double r11 = R(inputColor11) * (255.0 / A(inputColor11));
@@ -195,6 +209,7 @@ static UInt32* scaleImageWithLinearInterpolation(UInt32* pixelData, int sourceWi
                                     coffiecent4 * r01
                                     ) * (newA / 255.0));
             
+            // 新的G分量的值
             double g00 = G(inputColor00) * (255.0 / A(inputColor00));
             double g10 = G(inputColor10) * (255.0 / A(inputColor10));
             double g11 = G(inputColor11) * (255.0 / A(inputColor11));
@@ -206,6 +221,7 @@ static UInt32* scaleImageWithLinearInterpolation(UInt32* pixelData, int sourceWi
                                     coffiecent4 * g01
                                     ) * (newA / 255.0));
             
+            // 新的B分量的值
             double b00 = B(inputColor00) * (255.0 / A(inputColor00));
             double b10 = B(inputColor10) * (255.0 / A(inputColor10));
             double b11 = B(inputColor11) * (255.0 / A(inputColor11));
@@ -223,6 +239,124 @@ static UInt32* scaleImageWithLinearInterpolation(UInt32* pixelData, int sourceWi
     }
     
     return rgba;
+}
+
+
+static double a00, a01, a02, a03;
+static double a10, a11, a12, a13;
+static double a20, a21, a22, a23;
+static double a30, a31, a32, a33;
+static UInt32* scaleImageWithBicubicInterpolation(UInt32* pixelData, int sourceWidth, int sourceHeight, int desWidth, int desHeight) {
+    
+    UInt32 tempPixels[4][4];
+    float rowRatio = ((float)sourceHeight) / ((float)desHeight);
+    float colRatio = ((float)sourceWidth) / ((float)desWidth);
+    UInt32* rgba = (UInt32 *)calloc(desWidth * desHeight, sizeof(UInt32));
+    int offset=0;
+    for(int row = 0; row < desHeight; row++) {
+        double srcRow = ((float)row) * rowRatio;
+        double j = floor(srcRow);
+        double u = srcRow - j;
+        
+        for (int col = 0; col < desWidth; col++) {
+            
+            double srcCol = ((float)col) * colRatio;
+            double k = floor(srcCol);
+            double t = srcCol - k;
+            UInt32 newR = 255;
+            UInt32 newG = 255;
+            UInt32 newB = 255;
+            UInt32 newA = 255;
+            
+            for(int i=0; i<4; i++) {
+                tempPixels[0][0] = getRGBValue(pixelData, j-1, k-1, i, sourceWidth, sourceHeight);
+                tempPixels[0][1] = getRGBValue(pixelData, j-1, k, i, sourceWidth, sourceHeight);
+                tempPixels[0][2] = getRGBValue(pixelData, j-1, k+1, i, sourceWidth, sourceHeight);
+                tempPixels[0][3] = getRGBValue(pixelData, j-1, k+2,i, sourceWidth, sourceHeight);
+                
+                tempPixels[1][0] = getRGBValue(pixelData, j, k-1, i, sourceWidth, sourceHeight);
+                tempPixels[1][1] = getRGBValue(pixelData, j, k, i, sourceWidth, sourceHeight);
+                tempPixels[1][2] = getRGBValue(pixelData, j, k+1, i, sourceWidth, sourceHeight);
+                tempPixels[1][3] = getRGBValue(pixelData, j, k+2, i, sourceWidth, sourceHeight);
+                
+                tempPixels[2][0] = getRGBValue(pixelData, j+1, k-1, i, sourceWidth, sourceHeight);
+                tempPixels[2][1] = getRGBValue(pixelData, j+1, k, i, sourceWidth, sourceHeight);
+                tempPixels[2][2] = getRGBValue(pixelData, j+1, k+1, i, sourceWidth, sourceHeight);
+                tempPixels[2][3] = getRGBValue(pixelData, j+1, k+2, i, sourceWidth, sourceHeight);
+                
+                tempPixels[3][0] = getRGBValue(pixelData, j+2, k-1, i, sourceWidth, sourceHeight);
+                tempPixels[3][1] = getRGBValue(pixelData, j+2, k, i, sourceWidth, sourceHeight);
+                tempPixels[3][2] = getRGBValue(pixelData, j+2, k+1, i, sourceWidth, sourceHeight);
+                tempPixels[3][3] = getRGBValue(pixelData, j+2, k+2, i, sourceWidth, sourceHeight);
+                
+                // update coefficients
+                updateCoefficients(tempPixels);
+                if (i == 0) {
+                    newR = getPixelValue(getValue(u, t));
+                } else if (i == 1) {
+                    newG = getPixelValue(getValue(u, t));
+                } else if (i == 2) {
+                    newB = getPixelValue(getValue(u, t));
+                } else {
+                    newA = getPixelValue(getValue(u, t));
+                }
+            }
+
+            rgba[offset] = RGBAMake(newR, newG, newB, newA);
+            offset++;
+        }
+    }
+    
+    return rgba;
+}
+
+static UInt32 getRGBValue(UInt32* pixelData, double row, double col, int index, int width, int height) {
+    UInt32 inputColor = pixelData[(getClip((int)row, height - 1 , 0) * width + getClip((int)col, width - 1, 0))];
+    
+    if (index == 0) {
+        return R(inputColor);
+    } else if (index == 1) {
+        return G(inputColor);
+    } else if (index == 2) {
+        return B(inputColor);
+    } else {
+        return A(inputColor);
+    }
+}
+
+static double getValue(double x, double y) {
+    double x2 = x * x;
+    double x3 = x2 * x;
+    double y2 = y * y;
+    double y3 = y2 * y;
+
+    return (a00 + a01 * y + a02 * y2 + a03 * y3) +
+           (a10 + a11 * y + a12 * y2 + a13 * y3) * x +
+           (a20 + a21 * y + a22 * y2 + a23 * y3) * x2 +
+           (a30 + a31 * y + a32 * y2 + a33 * y3) * x3;
+}
+
+static UInt32 getPixelValue(double pixelValue) {
+    return pixelValue < 0 ? 0 : pixelValue > 255.0 ? 255 : (UInt32)pixelValue;
+}
+
+static void updateCoefficients(UInt32 p[4][4]) {
+        a00 = p[1][1];
+        a01 = -.5*p[1][0] + .5*p[1][2];
+        a02 = p[1][0] - 2.5*p[1][1] + 2*p[1][2] - .5*p[1][3];
+        a03 = -.5*p[1][0] + 1.5*p[1][1] - 1.5*p[1][2] + .5*p[1][3];
+        a10 = -.5*p[0][1] + .5*p[2][1];
+        a11 = .25*p[0][0] - .25*p[0][2] - .25*p[2][0] + .25*p[2][2];
+        a12 = -.5*p[0][0] + 1.25*p[0][1] - p[0][2] + .25*p[0][3] + .5*p[2][0] - 1.25*p[2][1] + p[2][2] - .25*p[2][3];
+        a13 = .25*p[0][0] - .75*p[0][1] + .75*p[0][2] - .25*p[0][3] - .25*p[2][0] + .75*p[2][1] - .75*p[2][2] + .25*p[2][3];
+        a20 = p[0][1] - 2.5*p[1][1] + 2*p[2][1] - .5*p[3][1];
+        a21 = -.5*p[0][0] + .5*p[0][2] + 1.25*p[1][0] - 1.25*p[1][2] - p[2][0] + p[2][2] + .25*p[3][0] - .25*p[3][2];
+        a22 = p[0][0] - 2.5*p[0][1] + 2*p[0][2] - .5*p[0][3] - 2.5*p[1][0] + 6.25*p[1][1] - 5*p[1][2] + 1.25*p[1][3] + 2*p[2][0] - 5*p[2][1] + 4*p[2][2] - p[2][3] - .5*p[3][0] + 1.25*p[3][1] - p[3][2] + .25*p[3][3];
+        a23 = -.5*p[0][0] + 1.5*p[0][1] - 1.5*p[0][2] + .5*p[0][3] + 1.25*p[1][0] - 3.75*p[1][1] + 3.75*p[1][2] - 1.25*p[1][3] - p[2][0] + 3*p[2][1] - 3*p[2][2] + p[2][3] + .25*p[3][0] - .75*p[3][1] + .75*p[3][2] - .25*p[3][3];
+        a30 = -.5*p[0][1] + 1.5*p[1][1] - 1.5*p[2][1] + .5*p[3][1];
+        a31 = .25*p[0][0] - .25*p[0][2] - .75*p[1][0] + .75*p[1][2] + .75*p[2][0] - .75*p[2][2] - .25*p[3][0] + .25*p[3][2];
+        a32 = -.5*p[0][0] + 1.25*p[0][1] - p[0][2] + .25*p[0][3] + 1.5*p[1][0] - 3.75*p[1][1] + 3*p[1][2] - .75*p[1][3] - 1.5*p[2][0] + 3.75*p[2][1] - 3*p[2][2] + .75*p[2][3] + .5*p[3][0] - 1.25*p[3][1] + p[3][2] - .25*p[3][3];
+        a33 = .25*p[0][0] - .75*p[0][1] + .75*p[0][2] - .25*p[0][3] - .75*p[1][0] + 2.25*p[1][1] - 2.25*p[1][2] + .75*p[1][3] + .75*p[2][0] - 2.25*p[2][1] + 2.25*p[2][2] - .75*p[2][3] - .25*p[3][0] + .75*p[3][1] - .75*p[3][2] + .25*p[3][3];
 }
 
 static int getClip(int x, int max, int min) {

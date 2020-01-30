@@ -18,6 +18,7 @@
 		1F58DF3B23D349C300B0C88A /* DifferenceOfImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F58DF3A23D349C300B0C88A /* DifferenceOfImages.swift */; };
 		1F58DF3D23D357A300B0C88A /* originalUIImage_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F58DF3C23D357A300B0C88A /* originalUIImage_1.png */; };
 		1F941B8D23DFE33600918160 /* RSTOa.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F941B8C23DFE33600918160 /* RSTOa.png */; };
+		1FA687B423E2922B00347734 /* ming_little.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FA687B323E2922B00347734 /* ming_little.png */; };
 		1FB2BD0523E16E48006F59BE /* SwiftImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1FB2BD0423E16E48006F59BE /* SwiftImage */; };
 		1FB2BD0723E16EB6006F59BE /* ming.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB2BD0623E16EB6006F59BE /* ming.png */; };
 		1FB2BD0A23E1C165006F59BE /* Swim in Frameworks */ = {isa = PBXBuildFile; productRef = 1FB2BD0923E1C165006F59BE /* Swim */; };
@@ -40,6 +41,7 @@
 		1F58DF3A23D349C300B0C88A /* DifferenceOfImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferenceOfImages.swift; sourceTree = "<group>"; };
 		1F58DF3C23D357A300B0C88A /* originalUIImage_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = originalUIImage_1.png; sourceTree = "<group>"; };
 		1F941B8C23DFE33600918160 /* RSTOa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RSTOa.png; sourceTree = "<group>"; };
+		1FA687B323E2922B00347734 /* ming_little.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ming_little.png; sourceTree = "<group>"; };
 		1FB2BD0623E16EB6006F59BE /* ming.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ming.png; sourceTree = "<group>"; };
 		1FB2BD0B23E1C1D4006F59BE /* TestSwim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSwim.swift; sourceTree = "<group>"; };
 		1FB2BD0D23E1E3A8006F59BE /* TestImage-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestImage-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				1F3032CA234E0F83007F2083 /* Info.plist */,
 				1F58DF3C23D357A300B0C88A /* originalUIImage_1.png */,
 				1FB2BD0623E16EB6006F59BE /* ming.png */,
+				1FA687B323E2922B00347734 /* ming_little.png */,
 				1F941B8C23DFE33600918160 /* RSTOa.png */,
 				1F3032D0234E14A5007F2083 /* baylor.jpg */,
 				1FB2BD0D23E1E3A8006F59BE /* TestImage-Bridging-Header.h */,
@@ -171,6 +174,7 @@
 			files = (
 				1FB2BD0723E16EB6006F59BE /* ming.png in Resources */,
 				1F58DF3D23D357A300B0C88A /* originalUIImage_1.png in Resources */,
+				1FA687B423E2922B00347734 /* ming_little.png in Resources */,
 				1F3032C9234E0F83007F2083 /* LaunchScreen.storyboard in Resources */,
 				1F3032C6234E0F83007F2083 /* Assets.xcassets in Resources */,
 				1F3032D1234E14A5007F2083 /* baylor.jpg in Resources */,
